@@ -51,7 +51,7 @@ int main( void)
 			int a, n;
 			printf("Enter position and your number: \n");
 			scanf("%d %d", &n, &a);
-			add_N(head, n, a);
+			add_N(&head, n, a);
 			printf("\n");
 		}
 		else if (menu == 5)

@@ -23,10 +23,10 @@ list* get_end(list** head)
 }
 add_first(list** head, int a)
 {
-	list* l = (list*)malloc(sizeof(list));
-	l->value = a;
-	l->next = *head;
-	*head = l;
+	list* l1 = (list*)malloc(sizeof(list));
+	l1->value = a;
+	l1->next = *head;
+	*head = l1;
 }
 add_last(list* head, int a)
 {
@@ -38,20 +38,26 @@ add_last(list* head, int a)
 }
 add_N(list** head, int n, int a)
 {
-	int i = 0;
+	int i = 1;
 	list* tmp = NULL;
-	list* l = *head;
-	while ((i < n) && (l->next))
+	if  ((*head == NULL) || (n == 0))
+		add_first(head, a);
+	else
 	{
-		l = l->next;
-		i++;
+		list* l = *head;
+		while ((l->next) && (i < n))
+		{
+			l = l->next;
+			i++;
+		}
+		tmp = (list*)malloc(sizeof(list));
+		tmp->value = a;
+		if (l ->next)
+			tmp ->next = l -> next;
+		else 
+			tmp ->next = NULL;
+		l ->next = tmp;
 	}
-	tmp = (list*)malloc(sizeof(list));
-	tmp->value = a;
-	if (l->next)
-		tmp->next = l->next;
-	else tmp->next = NULL;
-	l->next = tmp;
 }
 delete_first(list** head)
 {
