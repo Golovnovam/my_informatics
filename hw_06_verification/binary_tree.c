@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "binary_tree.h"
-enqueue(struct queue** head, struct queue** tail, struct node* value)
+void enqueue(struct queue** head, struct queue** tail, struct node* value)
 {
 	struct queue* q = (struct queue*)malloc(sizeof(struct queue));
 	q->next = NULL;
@@ -25,7 +25,7 @@ struct node* dequeue(struct queue** head, struct queue** tail)
 	free(buf);
 	return result;
 }
-add_new(struct node** root, int new_value)
+void add_new(struct node** root, int new_value)
 {
 	if (*root == NULL)
 	{
@@ -42,35 +42,20 @@ add_new(struct node** root, int new_value)
 			add_new(&(*root)->left, new_value);
 	}
 }
-dfs(struct node* root)
+void dfs(struct node* root)
 {
 	if (root == NULL)
 	{
 		printf("Tree is empty!");
-		return 0;
+		return;
 	}
 	printf("%d ", root->value);
 	if (root->left != NULL)
 		dfs(root->left);
 	if (root->right != NULL)
 		dfs(root->right);
-	return 0;
 }
-max_on_stage(struct node* root)
-{
-	if (root == NULL)
-	{
-		printf("Tree is empty!");
-		return 0;
-	}
-	printf("%d \n", root->value);
-	if (root->right != NULL)
-		max_on_stage(root->right);
-	else if (root->left != NULL)
-		max_on_stage(root->left);
-	return 0;
-}
-bfs(struct node* root)
+void bfs(struct node* root)
 {
 	struct queue* head;
 	struct queue* tail;
@@ -90,7 +75,7 @@ bfs(struct node* root)
 			if (value == NULL)
 			{
 				printf("Tree is empty!\n");
-				return 0;
+				return;
 			}
 			if (value->left)
 				enqueue(&new_head, &new_tail, value->left);
@@ -102,9 +87,8 @@ bfs(struct node* root)
 		head = new_head;
 		tail = new_tail;
 	}
-	return 0;
 }
-search(struct node* root, const int num)
+void search(struct node* root, const int num)
 {
 	int cout = 0;
 	struct queue* head;
@@ -125,12 +109,12 @@ search(struct node* root, const int num)
 			if (value == NULL)
 			{
 				printf("Tree is empty!\n");
-				return 0;
+				return;
 			}
 			if (value->value == num)
 			{
 				printf("Level = %d\n", cout);
-				return 0;
+				return;
 			}
 			if (value->left)
 				enqueue(&new_head, &new_tail, value->left);
@@ -142,5 +126,25 @@ search(struct node* root, const int num)
 		tail = new_tail;
 	}
 	printf("element was not found\n");
-	return 0;
+}
+
+int max_tree(struct node *root)
+{
+    
+    while (root->right)
+        root = root->right;
+
+    return root->value; 
+}
+
+
+int count_of_value(node *root, int value) {
+    if (root == NULL) 
+        return 0; 
+
+    int left = count_of_value(root->left, value); 
+    int right = count_of_value(root->right, value); 
+    int curr = root->value == value ? 1 : 0; 
+
+    return (curr + left + right); 
 }

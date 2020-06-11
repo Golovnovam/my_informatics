@@ -1,22 +1,26 @@
 
 #ifndef _BINARY_TREE_H
 #define _BINARY_TREE_H
-typedef struct node
+struct node
 {
 	int value;
 	struct node* left;
 	struct node* right;
-}node;
-typedef struct queue
+};
+typedef struct node node;
+struct queue
 {
 	struct queue* next;
 	struct node* tree;
-}queue;
-add_new(struct node** root, int value);
-dfs(struct node* node);
-enqueue(struct queue** head, struct queue** tail, struct node* value);
+};
+typedef struct queue queue;
+void add_new(struct node** root, int value);
+void dfs(struct node* node);
+void enqueue(struct queue** head, struct queue** tail, struct node* value);
 struct node* dequeue(struct queue** head, struct queue** tail);
-bfs(struct node* root);
-search(struct node* root, const int num);
-max_on_stage(struct node* node);
+void bfs(struct node* root);
+void search(struct node* root, const int num);
+
+int max_tree(struct node *root); 
+int count_of_value(node *root, int value);
 #endif 
